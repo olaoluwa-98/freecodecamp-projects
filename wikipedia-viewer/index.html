@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>freeCodeCamp : Wikipedia Viewer</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style type="text/css">
+		body {
+		  margin: 0px;
+		  background-color: #c7bdc4;
+		}
+
+		div.wiki-title {
+			margin: 1em auto;
+			margin-top: 5em;
+		    width: 80%;
+		    background-color: #67b7a0;
+		    color: #ffffff;
+		    padding: 10px;
+		    text-align: center;
+		    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 3px 3px 4px 0px rgba(0,0,0,0.24);
+		}
+
+		.wiki-search {
+			margin: auto;
+		    width: 80%;
+		    text-align: center;
+		}
+
+		div.wiki-title-top {
+			text-decoration: underline;
+			font-size: 2.5em;
+			margin-bottom: 15px;
+		}
+
+		div.wiki-title-tip {
+			font-size: 1.2em;			
+		}
+
+		div.wiki-container {
+			margin: auto;
+			margin-top: 1em;
+		    background-color: #add0c6;
+		    width: 80%;
+		    color: #ffffff;
+		    padding: 5px;
+		    /* box-shadow: 0 1px 3px rgba(0,0,0,0.12), 3px 3px 4px 0px rgba(0,0,0,0.24); */
+		}
+		/* OTHERS */
+		.button {
+		    background-color: #65c5c5; /* Green */
+		    border: none;
+		    border-radius: 5px;
+		    color: white;
+		    padding: 10px 15px;
+		    text-align: center;
+		    text-decoration: none;
+		    display: inline-block;
+		    font-size: 16px;
+		    transition: background-color .35s ease-in-out , box-shadow .35s ease-in-out;
+		    -webkit-transition: background-color .35s ease-in-out , box-shadow .35s ease-in-out;
+		}
+
+		.button:hover {
+		  background-color: cadetblue;
+		  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 3px 3px 4px 0px rgba(0,0,0,0.24);
+		}
+
+		.button:active {
+		  background-color: #1d4141;
+		  transform: translateY(2px);
+		  box-shadow: none;
+		}
+		
+		::selection {
+		    color: #ffffff;
+		    background: #ba64e8;
+		}
+
+		input {
+		    width: 50%;
+		    color: #489797;
+		    font: normal normal bold 15px/50px arial, sans-serif;
+		    padding: 0 10px;
+		    border: none;
+		    outline: none;
+		    border-bottom: 1px solid aqua;
+		    -webkit-transition: all .35s ease-in-out .5s;
+		    transition: all .35s ease-in-out .5s;
+		}
+
+		::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+			color:   rgba(107, 156, 156, 0.5);
+			opacity: 0.5;
+		}
+
+		:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+		   color:   rgba(107, 156, 156, 0.5);
+		   opacity: 0.5;
+		}
+
+		::-moz-placeholder { /* Mozilla Firefox 19+ */
+		   color:   rgba(107, 156, 156, 0.5);
+		   opacity: 0.5;
+		}
+
+		:-ms-input-placeholder { /* Internet Explorer 10-11 */
+		   color:   rgba(107, 156, 156, 0.5);
+		   opacity: 0.5;
+		}
+
+		::-ms-input-placeholder { /* Microsoft Edge */
+		   color:   rgba(107, 156, 156, 0.5);
+		   opacity: 0.5;
+		}
+
+		input:placeholder {
+		  color: rgba(107, 156, 156, 0.5);
+		  opacity: 0.5;
+		}
+
+		.footer {
+			background-color: #1b2e31;
+			font-weight: bold;
+			font-size: 1em;
+		    color: #ffffff;
+		    padding: 5px;
+			position: fixed;
+			bottom: 0px;
+			right: 50px;
+		    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 3px 3px 4px 0px rgba(0,0,0,0.24);
+		}
+	</style>
+</head>
+<body>
+
+<div class="wiki-title">
+	<div class="wiki-title-top">Wikipedia Viewer</div>
+	<div class="wiki-title-tip">Enter a search term to search wikipedia</div>
+	<div class="wiki-title-tip"><a href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">
+		Click here for a random article.</a></div>
+</div>
+
+<div class="wiki-search">
+	<form id="search-form">
+		<input type="text" name="search" id="search-input">
+		<button class="button" type="submit">Search</button>
+	</form>
+</div>
+<div class="footer">
+	Made With
+	<i class="fa fa-heart" style="color: red"></i>
+	By <a href="https://twitter.com/olaoluwa_98"
+	style="text-decoration: none; color: white"> Emmanuel Awotunde</a>
+</div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+<script>
+	var ROOT_URL = "https://en.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=0&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&origin=*&gsrsearch="
+	var cb = '&callback=JSON_CALLBACK';
+	var page = 'https://en.wikipedia.org/?curid=';
+
+	$('#search-form').on('submit', function(event){
+		event.preventDefault();
+		var search = $("#search-input").val();
+		if (search !== '' && typeof search !== 'undefined')
+		{
+			$.ajax({
+				type: "GET",
+				url: ROOT_URL + search + cb,
+				dataType: 'json',
+				success: function (data) {
+					var result = data.query.pages;
+					result.map(page => {
+						var ele = '<div class = "wiki-container">'
+							+ `<h3>${page.title}</h3>`
+							+ `<p>${page.extract}</p>`
+							+ '</div>';
+						$(".search-form").after(ele);
+					});
+				},
+				error: function (error) {
+					console.log('error');
+				},
+			});
+		}
+	});
+</script>
