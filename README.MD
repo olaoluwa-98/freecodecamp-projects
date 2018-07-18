@@ -1,3 +1,7 @@
 # My freecodecamp projects
 
-> Wikipedia viewer
+> Tribute Page
+> Personal Portfolio Webpage
+> Random Quote Machine
+> Weather App
+> Wikipedia Viewer

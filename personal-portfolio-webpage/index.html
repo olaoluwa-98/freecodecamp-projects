@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Personal Portfolio Webpage</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font: 20px Montserrat, sans-serif;
+            line-height: 1.8;
+            color: #f5f6f7;
+        }
+        p {
+            font-size: 16px;
+        }
+        .margin {margin-bottom: 45px;}
+        .bg-1 { 
+            background-color: #1abc9c; /* Green */
+            color: #ffffff;
+        }
+        .bg-2 { 
+            background-color: #474e5d; /* Dark Blue */
+            color: #ffffff;
+        }
+        .bg-3 { 
+            background-color: #ffffff; /* White */
+            color: #555555;
+        }
+        .bg-4 { 
+            background-color: #2f2f2f; /* Black Gray */
+            color: #fff;
+        }
+        .container-fluid {
+            padding-top: 70px;
+            padding-bottom: 70px;
+        }
+        .navbar {
+            padding-top: 15px;
+            padding-bottom: 15px;
+            border: 0;
+            border-radius: 0;
+            margin-bottom: 0;
+            font-size: 12px;
+            letter-spacing: 5px;
+        }
+        .navbar-nav  li a:hover {
+            color: #1abc9c !important;
+        }
+        div#contact a{
+            background-color: transparent;
+            box-sizing: border-box;
+            color: #fff;
+            border: solid 2px #fff;
+            border-radius: 50%;
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 20px;
+            line-height: 48px;
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+
+        }
+        div#contact a:hover{
+            background-color: white;
+        }
+        #footer{
+            height: 10%;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://twitter.com/olaoluwa_98">Emmanuel Awotunde</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#about">ABOUT</a>
+                    </li>
+                    <li>
+                        <a href="#portfolio">PORTFOLIO</a>
+                    </li>
+                    <li>
+                        <a href="#contact">CONTACT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- First Container -->
+    <div class="container-fluid bg-1 text-center" id="about">
+        <h3 class="margin">Emmanuel Awotunde</h3>
+        <img src="https://pbs.twimg.com/profile_images/985815761179561985/nTEMEhfo_400x400.jpg" class="img-responsive img-circle margin"
+            style="display:inline" alt="Bird" width="350" height="350">
+        <h3>Back-End Developer with interest in PHP, Python and Javascript. Front-End Newbie.</h3>
+        <h3>He Also Loves Simplicity.</h3>
+    </div>
+    
+    <!-- Second Container -->
+    <div class="container-fluid bg-3 text-center" id="portfolio">
+        <h3 class="margin">Portfolio</h3>
+        <br>
+        <div class="row">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <a href="https://www.instagram.com/officialfancity/">
+                    <img src="https://scontent-bru2-1.cdninstagram.com/t51.2885-15/e35/16585572_226077344530042_2779835909237899264_n.jpg"
+                        class="img-responsive text-center" style="height: 400px; width: 400px" alt="FanCity">
+                </a>
+                <p style="font-weight: bold">FanCity, an online platform that promotes and rewards the love for football by providing news and organizing
+                    quizzes about football in which winners get rewards.</p>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+    
+        <!-- Third Container (Grid) -->
+        <div class="container-fluid bg-2 text-center" id="contact">
+            <h3 class="margin">Where You Can Find Me</h3>
+            <div class="text-center">
+                <a class="button social" title="twitter" href="https://twitter.com/olaoluwa_98" target="_blank">
+                    <i class="fa fa-fw fa-twitter"></i>
+                </a>
+                <a class="button social" title="Medium" href="https://medium.com/@olaoluwa_98" target="_blank">
+                    <i class="fa fa-fw fa-medium"></i>
+                </a>
+                <a class="button social" title="Instagram" href="https://instagram.com/olaoluwa_98" target="_blank">
+                    <i class="fa fa-fw fa-instagram"></i>
+                </a>
+                <a class="button social" title="Facebook" href="https://github.com/olaoluwa-98" target="_blank">
+                    <i class="fa fa-fw fa-facebook"></i>
+                </a>
+                <a class="button social" title="LinkedIn" href="https://www.linkedin.com/in/olaoluwa_98" target="_blank">
+                    <i class="fa fa-fw fa-linkedin"></i>
+                </a>
+                <a class="button social" title="Github" href="https://github.com/olaoluwa-98" target="_blank">
+                    <i class="fa fa-fw fa-github"></i>
+                </a>
+                <a class="button social" title="Google+" href="https://plus.google.com/u/1/106429453907332377595" target="_blank">
+                    <i class="fa fa-fw fa-google-plus"></i>
+                </a>
+            </div>
+        </div>
+    
+        <!-- Footer -->
+        <footer class="container-fluid bg-4 text-right" id="footer">
+            <p>Made With
+                <i class="fa fa-love"></i> By
+                <a href="http://twitter.com/olaoluwa_98" target="_blank">Emmanuel Awotunde</a>
+            </p>
+        </footer>    
+</body>
+</html>

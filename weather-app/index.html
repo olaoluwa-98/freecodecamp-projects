@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>freeCodeCamp: Weather App</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body{
+			height: 600px;
+		    background: linear-gradient(150deg, #e8e8e8 10%, #485c5f 45%, #31687d 85%);
+		    font-family: "Lucida Sans", sans-serif;
+		}
+		.main{
+			margin: 5% 10% 0% 10%;
+			margin-left:  10%;
+		}
+
+		.temp-container {
+		  height: 100%;
+		}
+
+		.temp-container .temp {
+				color: #1fc8db;
+				font-size: 2em;
+				font-weight: bolder;
+		    text-align: center;
+		    background-color: #fff;
+				padding: 15px;
+				padding-top: 10px;
+		    width: 150px;
+				height: 150px;
+		    margin: 0% 45% 0% 40%;
+		    backface-visibility: hidden;
+		    border: 5px solid #3198bf;
+		    border-radius: 15px;
+		    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 3px 3px 4px 0px rgba(0,0,0,0.24);
+		    -webkit-transition: all .35s ease-in-out 0.3s;
+		    transition: all .35s ease-in-out 0.3s;
+		}
+
+		.temp::first-letter {
+		    color: #3198bf;
+		}
+		.temp-marks{
+				color: #3198bf;
+		    font-size: xx-large;
+		}
+
+		.new-temp{
+			opacity: 0;
+		    -webkit-animation-name: temp-animate;
+		    -webkit-animation-duration: 3s;
+		    -webkit-animation-timing-function: linear;
+		    -webkit-animation-delay: 1s;
+		    -webkit-animation-iteration-count: 1;
+		    -webkit-animation-direction: alternate;
+		    /* Standard syntax */
+		    animation-name: temp-animate;
+		    animation-duration: 3s;
+		    animation-timing-function: linear;
+		    animation-delay: 1s;
+		    animation-iteration-count: 1;
+		    animation-direction: alternate;
+		}
+
+		/* Safari 4.0 - 8.0 */
+		@-webkit-keyframes temp-animate {
+		    0%   {opacity: 0}
+		    25%  {opacity: .25}
+		    50%  {opacity: .5}
+		    75%  {opacity: .75}
+		    100% {opacity: 1}
+		}
+
+		/* Standard syntax */
+		@keyframes temp-animate {
+		    0%   {opacity: 0}
+		    25%  {opacity: .25}
+		    50%  {opacity: .5}
+		    75%  {opacity: .75}
+		    100% {opacity: 1}
+		}
+		.top{
+			margin: 10% 30% 0% 30%;
+			font-weight: bold;
+			font-size: 3em;
+			text-align: center;
+			color: #fff;
+		}
+		.footer{
+			position: fixed;
+			bottom: 0px;
+			right: 50px;
+			font-weight: bold;
+			font-size: 1em;
+			color: #fff;
+		}
+    </style>
+</head>
+<body>
+    <div class="top">Weather App by Emmanuel Awotunde</div>
+    <div class="main">
+        <div class="temp-container">
+            <div class="temp">
+                <span id="city"></span>,
+                <span id="country"></span>
+                <br>
+                <span id="temperature"></span>
+                <br>
+                <span id="weather"></span>
+                <br>
+                <br>
+                <img src="" id="weather-icon">
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        Made With
+        <i class="fa fa-heart" style="color: red"></i> By
+        <a href="https://twitter.com/olaoluwa_98" style="text-decoration: none; color: white"> Emmanuel Awotunde</a>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+<script>
+    var x = document.getElementById("temperature");
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                x.innerHTML = "Geolocation is not supported by this browser.";
+            }
+        }
+
+        function showError(error) {
+            switch (error.code) {
+                case error.PERMISSION_DENIED:
+                    x.innerHTML = "User denied the request for Geolocation."
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    x.innerHTML = "Location information is unavailable."
+                    break;
+                case error.TIMEOUT:
+                    x.innerHTML = "The request to get user location timed out."
+                    break;
+                case error.UNKNOWN_ERROR:
+                    x.innerHTML = "An unknown error occurred."
+                    break;
+            }
+        }
+
+        var BASE_URL = 'https://fcc-weather-api.glitch.me/api/current?';
+        var lat = 0.0;
+        var long = 0.0;
+        getLocation();
+
+        function showPosition(position) {
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+            var final_url = BASE_URL + 'lat=' + lat + '&lon=' + long;
+            $.ajax({
+                type: "GET",
+                url: final_url,
+                success: function (msg) {
+                    if (msg['error']) {
+                        alert(Object.values(msg));
+                    } else {
+                        $("#city").text(msg['name']);
+                        $("#country").text(msg['sys']['country']);
+                        $("#temperature").text(msg['main']['temp'] + '°C');
+                        celmain = msg['main']['temp'];
+                        $("#temperature").attr('onclick', "farenheit(" + msg['main']['temp'] + ")");
+                        $("#weather").text(msg['weather'][0]['main']);
+                        $("#weather-icon").attr('src', msg['weather'][0]['icon']);
+                    }
+                },
+                error: function (msg) {
+                    alert(Object.values(msg));
+                },
+            });
+        }
+
+        function farenheit(celsius) {
+            var farenheit = Math.round(celsius * 9 / 5 + 32);
+            $("#temperature").text(farenheit + 'F');
+            $("#temperature").attr('onclick', "celsius(" + farenheit + ")");
+        }
+        function celsius(faren) {
+            var celsius = Math.round(celsius * 9 / 5 + 32);
+            $("#temperature").text(celmain + '°C');
+            $("#temperature").attr('onclick', "farenheit(" + celmain + ")");
+        }
+</script>
+</html>

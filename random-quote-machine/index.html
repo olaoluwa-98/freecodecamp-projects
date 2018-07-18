@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>freeCodeCamp: Random Quote Machine</title>
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body{
+			background-color: #6d90ad;
+			font-family: "Lucida Sans", sans-serif;
+		}	
+		.main{
+			margin: 5% 10% 0% 10%;
+			margin-left:  10%;
+		}
+
+		.quote-container {
+		  height: 100%;
+		}
+
+		.quote-container .quote {
+		    opacity: 1;
+		    text-align: center;
+		    background-color: #fff;
+		    width: 80%;
+		    margin: 0% 10% 0% 10%;
+		    backface-visibility: hidden;
+		    border: 10px solid #3198bf;
+		    border-radius: 4px;
+		    padding: 5px;    
+		    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 3px 3px 4px 0px rgba(0,0,0,0.24);
+		    -webkit-transition: all .35s ease-in-out 0.3s;
+		    transition: all .35s ease-in-out 0.3s;
+		}
+
+		.quote::first-letter {
+		    color: #3198bf;
+		    font-size: xx-large;
+		}
+		.quote-marks{
+			color: #3198bf;
+		    font-size: xx-large;
+		}
+
+		.quote-container .author {
+		  opacity: 0;
+		  background-color: #fff;
+		  position: absolute;
+		  padding:10px;
+		  top: 40%;
+		  left: 70%; 
+		  border: 10px solid #3198bf;
+	      border-radius: 4px;
+		  -webkit-transition: all .35s ease-in-out 0.3s;
+		  transition: all .35s ease-in-out 0.3s;
+		  transform: translate(-50%, -50%);
+		  -ms-transform: translate(-50%, -50%)
+		}
+
+		.quote-container:hover .author{
+		    opacity: 0.3;
+		    -webkit-transform: translate(-10px, -10px);
+		    transform: translate(-20px, 100px);
+		    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+		}
+
+		.quote-container:hover .author {
+		  opacity: 1;
+		}
+
+		.quote-tweet{
+			height: 20px;
+			position: absolute;
+			left: 30%;
+			padding: 1px 5px 5px 5px; 
+			margin: 0px 5px 5px 100px;
+			font-size: 2.8em;
+			color: white;
+		}
+
+		.quote-tweet:hover{
+			color: #3198bf;
+			box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+		}
+		#generate-quote{
+			position: absolute;
+			background-color: #fff;
+			border: 1px solid #fff;
+			color: #3198bf;
+			font-weight: bold;
+			left: 18%;
+			padding: 10px; 
+			margin:10px;
+		}
+
+		#generate-quote:hover{
+			border: 1px solid #3198bf;
+			box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+		}
+
+		.new-quote{
+			opacity: 0;
+		    -webkit-animation-name: quote-animate;
+		    -webkit-animation-duration: 3s;
+		    -webkit-animation-timing-function: linear;
+		    -webkit-animation-delay: 1s;
+		    -webkit-animation-iteration-count: 1;
+		    -webkit-animation-direction: alternate;
+		    /* Standard syntax */
+		    animation-name: quote-animate;
+		    animation-duration: 3s;
+		    animation-timing-function: linear;
+		    animation-delay: 1s;
+		    animation-iteration-count: 1;
+		    animation-direction: alternate;
+		}
+
+		/* Safari 4.0 - 8.0 */
+		@-webkit-keyframes quote-animate {
+		    0%   {opacity: 0}
+		    25%  {opacity: .25}
+		    50%  {opacity: .5}
+		    75%  {opacity: .75}
+		    100% {opacity: 1}
+		}
+
+		/* Standard syntax */
+		@keyframes quote-animate {
+		    0%   {opacity: 0}
+		    25%  {opacity: .25}
+		    50%  {opacity: .5}
+		    75%  {opacity: .75}
+		    100% {opacity: 1}
+		}
+		.top{
+			margin: 10% 30% 0% 30%;
+			font-weight: bold;
+			font-size: 2em;
+			text-align: center;
+			color: #fff;
+		}
+		.footer{
+			position: fixed;
+			bottom: 0px;
+			right: 50px;
+			font-weight: bold;
+			font-size: 1em;
+			color: #fff;
+		}
+    </style>
+</head>
+<body>
+    <div class="top"> Hover on the quote to see author</div>
+    <div class="main">
+        <div class="quote-container">
+            <div class="quote">"Be the change you want to see in the world
+                <span class="quote-marks">"</span>
+            </div>
+            <div class="author">
+                By
+                <span style="font-weight: bold" id="author">Mahatma Ghandi</span>
+            </div>
+            <a rel="nofollow" class="quote-tweet" id="tweet" title="Tweet this quote!" target="_blank" href="https://twitter.com/intent/tweet?hashtags=quotes&amp;related=freecodecamp&amp;text='Be%20the%20change%20you%20want%20to%20see%20in%20the%20world'%20By%20Mahatma%20Ghandi">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <button id="generate-quote">Generate New Quote</button>
+        </div>
+    </div>
+    <div class="footer">
+        Made With
+        <i class="fa fa-heart" style="color: red"></i> By
+        <a href="https://twitter.com/olaoluwa_98" style="text-decoration: none; color: white"> Emmanuel Awotunde</a>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous"></script>
+<script>
+    var quoteSource = [
+            {
+                quote: "Start by doing what's necessary; then do what's possible; and suddenly you are doing the impossible.",
+                author: "Francis of Assisi"
+            },
+            {
+                quote: "Believe you can and you're halfway there.",
+                author: "Theodore Roosevelt"
+            },
+            {
+                quote: "It does not matter how slowly you go as long as you do not stop.",
+                author: "Confucius"
+            },
+            {
+                quote: "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
+                author: "Thomas A. Edison"
+            },
+            {
+                quote: "The will to win, the desire to succeed, the urge to reach your full potential... these are the keys that will unlock the door to personal excellence.",
+                author: "Confucius"
+            },
+            {
+                quote: "Don't watch the clock; do what it does. Keep going.",
+                author: "Sam Levenson"
+            },
+            {
+                quote: "A creative man is motivated by the desire to achieve, not by the desire to beat others.",
+                author: "Ayn Rand"
+            },
+            {
+                quote: "A creative man is motivated by the desire to achieve, not by the desire to beat others.",
+                author: "Ayn Rand"
+            },
+            {
+                quote: "Expect problems and eat them for breakfast.",
+                author: "Alfred A. Montapert"
+            },
+            {
+                quote: "Start where you are. Use what you have. Do what you can.",
+                author: "Arthur Ashe"
+            },
+            {
+                quote: "Ever tried. Ever failed. No matter. Try Again. Fail again. Fail better.",
+                author: "Samuel Beckett"
+            },
+            {
+                quote: "Be yourself; everyone else is already taken.",
+                author: "Oscar Wilde"
+            },
+            {
+                quote: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+                author: "Albert Einstein"
+            },
+            {
+                quote: "Always remember that you are absolutely unique. Just like everyone else.",
+                author: "Margaret Mead"
+            },
+            {
+                quote: "Do not take life too seriously. You will never get out of it alive.",
+                author: "Elbert Hubbard"
+            },
+            {
+                quote: "People who think they know everything are a great annoyance to those of us who do.",
+                author: "Isaac Asimov"
+            },
+            {
+                quote: "Procrastination is the art of keeping up with yesterday.",
+                author: "Don Marquis"
+            },
+            {
+                quote: "Get your facts first, then you can distort them as you please.",
+                author: "Mark Twain"
+            },
+            {
+                quote: "A day without sunshine is like, you know, night.",
+                author: "Steve Martin"
+            },
+            {
+                quote: "My grandmother started walking five miles a day when she was sixty. She's ninety-seven now, and we don't know where the hell she is.",
+                author: "Ellen DeGeneres"
+            },
+            {
+                quote: "Don't sweat the petty things and don't pet the sweaty things.",
+                author: "George Carlin"
+            },
+            {
+                quote: "Always do whatever's next.",
+                author: "George Carlin"
+            },
+            {
+                quote: "Atheism is a non-prophet organization.",
+                author: "George Carlin"
+            },
+            {
+                quote: "Hapiness is not something ready made. It comes from your own actions.",
+                author: "Dalai Lama"
+            }
+
+        ];
+
+        var quote = $('.quote');
+
+        $(document).ready(function () {
+            $("#generate-quote").click(function () {
+
+                // get the length of the array for the quotes
+                var sourceLength = quoteSource.length;
+                // generate a random number to select a quote randomly
+                var randomNumber = Math.floor(Math.random() * sourceLength);
+
+                // get a new quote using the random number
+                for (i = 0; i <= sourceLength; i++) {
+                    var newQuote = quoteSource[randomNumber].quote;
+                    var author = quoteSource[randomNumber].author;
+                }
+
+                // get the new tweet intent url
+                var tweet_url = "https://twitter.com/intent/tweet?hashtags=quotes&amp;related=freecodecamp&amp;text='";
+                tweet_url += newQuote.replace(/\s/g, '%20');
+                tweet_url += "'%20By%20" + author.replace(/\s/g, '%20');
+
+                // animate the new quote coming in
+                quote.fadeOut(1000, function () {
+                    quote.text(newQuote);
+                    $('#author').text(author);
+                    quote.fadeIn(1000);
+                });
+                // get the new tweet url
+                $('#tweet').attr('href', tweet_url);
+            });
+        });
+</script>
+</html>
